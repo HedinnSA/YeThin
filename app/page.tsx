@@ -1,4 +1,5 @@
 import Button from "./components/button";
+import LinkButton from "./components/buttonLink";
 import Header from "./components/header";
 
 export default function Home() {
@@ -7,7 +8,7 @@ export default function Home() {
       <Header />
       
       <div className="flex flex-col flex-1 items-center justify-center gap-3">
-        <Button>A</Button>
+        <LinkButton></LinkButton>
         <Button>B</Button>
       </div>
     </>
