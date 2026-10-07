@@ -1,30 +1,29 @@
-import { usersTable } from "./schema";
+import { userTable } from "./schema";
 import { db } from ".";
 import { eq } from "drizzle-orm";
 
 async function main() {
-    const user: typeof usersTable.$inferInsert = {
+    const user: typeof userTable.$inferInsert = {
         name: "Tester",
-        age: 32,
         email: "retset@tester.com",
     };
 
-    await db.insert(usersTable).values(user);
+    await db.insert(userTable).values(user);
     console.log("New User Created");
 
-    const users = await db.select().from(usersTable);
+    const users = await db.select().from(userTable);
     console.log("Getting all users from the database", users);
 
     await db
-    .update(usersTable)
+    .update(userTable)
     .set({
-        age : 31,
+        name : "Tester2",
     })
-    .where (eq(usersTable.email, user.email));
+    .where (eq(userTable.email, user.email));
     console.log("User info updated");
 
     await db
-    .delete(usersTable).where(eq(usersTable.email, user.email));
+    .delete(userTable).where(eq(userTable.email, user.email));
     console.log("User deleted!")
 }
 main();
