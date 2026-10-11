@@ -12,7 +12,7 @@ export const sessionTable = pgTable("session", {
     id: uuid().primaryKey().defaultRandom(),
     //ref to user id
     timeStarted: timestamp("time_started").notNull().defaultNow(),
-    timeEnded: timestamp("time_ended").notNull().defaultNow(),
+    timeEnded: timestamp("time_ended"),
     //ref to workoutTemplateID
 })
 
@@ -28,7 +28,7 @@ export const sessionSetTable = pgTable("session_set", {
     notes: text(),
 })
 
-export const exerciseTable = pgTable("exercise_table", {
+export const exerciseTable = pgTable("exercise", {
     id: uuid().primaryKey().defaultRandom(),
     name: varchar({length: 255}).notNull(),
     notes: text(),
@@ -39,7 +39,7 @@ export const exerciseTable = pgTable("exercise_table", {
 export const workoutTemplateTable = pgTable ("workout_template", {
     id: uuid().primaryKey().defaultRandom(),
     type: varchar("type", {length: 255}).notNull(),
-    variant: varchar("type", {length: 255}).notNull(),
+    variant: varchar("variant", {length: 255}).notNull(),
     warmupNote: text("warmup_note"),
 })
 
