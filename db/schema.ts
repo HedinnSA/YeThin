@@ -20,10 +20,10 @@ export const sessionSetTable = pgTable("session_set", {
     id: uuid().primaryKey().defaultRandom(),
     sessionId: uuid("session_id").notNull().references(() => sessionTable.id),
     exerciseId: uuid("exercise_id").notNull().references(() => exerciseTable.id),
-    setNumber: integer("set_number"),
+    setNumber: integer("set_number").notNull(),
     weight: numeric("weight",{precision: 5, scale: 2}),
     reps: integer("reps"),
-    duration: integer("duration"), // TODO should it be an int?
+    duration: integer("duration"), // Tracks seconds
     side: sideEnum(),
     notes: text(),
 })
@@ -32,7 +32,7 @@ export const exerciseTable = pgTable("exercise", {
     id: uuid().primaryKey().defaultRandom(),
     name: varchar({length: 255}).notNull(),
     notes: text(),
-    tracksDuration: boolean("tracks_duration"),
+    tracksDuration: boolean("tracks_duration").notNull().default(false),
     tracksSide: boolean("tracks_side"),
 })
 
@@ -47,10 +47,10 @@ export const templateExerciseTable = pgTable ("template_exercise", {
     id: uuid().primaryKey().defaultRandom(),
     workoutTemplateId: uuid("workout_template_id").notNull().references(() => workoutTemplateTable.id),
     exerciseId: uuid("exercise_id").notNull().references(() => exerciseTable.id),
-    targetSets: integer("target_sets"),
+    targetSets: integer("target_sets").notNull(),
     targetRepsMin: integer("target_reps_min"),
     targetRepsMax: integer("target_reps_max"),
     targetDuration: integer("target_duration"),
-    sortOrder: integer("sort_order"),
+    sortOrder: integer("sort_order").notNull(),
     notes: text(),
 })
