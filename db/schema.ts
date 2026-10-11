@@ -10,7 +10,7 @@ export const userTable = pgTable("user", {
 
 export const sessionTable = pgTable("session", {
     id: uuid().primaryKey().defaultRandom(),
-    userID: uuid().notNull().references(() => userTable.id),
+    userId: uuid("user_id").notNull().references(() => userTable.id),
     timeStarted: timestamp("time_started").notNull().defaultNow(),
     timeEnded: timestamp("time_ended"),
     workoutTemplateID: uuid().notNull().references(() => workoutTemplateTable.id),
@@ -18,8 +18,8 @@ export const sessionTable = pgTable("session", {
 
 export const sessionSetTable = pgTable("session_set", {
     id: uuid().primaryKey().defaultRandom(),
-    sessionID: uuid().notNull().references(() => sessionTable.id),
-    exerciseID: uuid().notNull().references(() => exerciseTable.id),
+    sessionId: uuid("session_id").notNull().references(() => sessionTable.id),
+    exerciseId: uuid("exercise_id").notNull().references(() => exerciseTable.id),
     setNumber: integer("set_number"),
     weight: numeric("weight",{precision: 5, scale: 2}),
     reps: integer("reps"),
@@ -45,8 +45,8 @@ export const workoutTemplateTable = pgTable ("workout_template", {
 
 export const templateExerciseTable = pgTable ("template_exercise", {
     id: uuid().primaryKey().defaultRandom(),
-    workoutTemplateId: uuid().notNull().references(() => workoutTemplateTable.id),
-    exerciseID: uuid().notNull().references(() => exerciseTable.id),
+    workoutTemplateId: uuid("workout_template_id").notNull().references(() => workoutTemplateTable.id),
+    exerciseId: uuid("exercise_id").notNull().references(() => exerciseTable.id),
     targetSets: integer("target_sets"),
     targetRepsMin: integer("target_reps_min"),
     targetRepsMax: integer("target_reps_max"),
